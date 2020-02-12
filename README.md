@@ -2,6 +2,8 @@
 
 Calendário HTML + CSS + Javascript
 
+<p> Projeto simples exibindo o dia e mêa atual em destaques.
+</p>
 
 <img src="https://github.com/teonett/Javascript-Calendario-Html/blob/master/Calendariov1.0.png">
 
