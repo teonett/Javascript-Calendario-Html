@@ -5,7 +5,7 @@ Calendário HTML + CSS + Javascript
 <p> Projeto simples exibindo o dia e mêa atual em destaques.
 </p>
 
-<img src="https://github.com/teonett/Javascript-Calendario-Html/blob/master/Calendariov1.0.png">
+<img src="https://github.com/teonett/Javascript-Calendario-Html/blob/master/Calendariov1.1.png">
 
 <h4>Copyright (C) 2020 Jose Teotonio (teonett@gmail.com)
 </h4>
