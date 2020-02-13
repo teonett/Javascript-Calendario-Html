@@ -7,8 +7,9 @@ function displayCalendar(){
     var dateNow = new Date();
     var month = dateNow.getMonth();
    
-    var nextMonth = month+1; //+1; //Used to match up the current month with the correct start date.
+    var nextMonth = month+1; 
     var prevMonth = month -1;
+
     var day = dateNow.getDate();
     var year = dateNow.getFullYear();
     
@@ -21,9 +22,42 @@ function displayCalendar(){
        }
     }
     
-    // names of months and week days.
-    var monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
-    var dayNames = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"];
+    //Month Names 
+    var ptMonthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+    var enMonthNames = ["January","February","March","April","May","June","July","August","September","October","November", "December"];
+    var esMonthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+
+    //Week Day Names
+    var ptDayNames = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
+    var enDayNames = ["Sunday","Monday","Tuesday","Wednesday","Thrusday","Friday", "Saturday"];
+    var esDayNames = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sabado"];
+
+    var monthNames = ptMonthNames;
+    var dayNames = ptDayNames;
+
+    document.getElementById('my-select').addEventListener('change', function() {
+        
+        var lng = this.value;
+
+         if(lng == 1){
+             monthNames = ptMonthNames;
+             dayNames = ptDayNames;
+         }
+
+         if(lng == 2){
+             monthNames = enMonthNames;
+             dayNames = enDayNames;
+         }
+        
+         if(lng == 3){
+             monthNames = esMonthNames;
+             dayNames = esDayNames;
+         }
+
+         buildCalendarBody()
+
+      });
+
     var dayPerMonth = ["31", ""+FebNumberOfDays+"","31","30","31","30","31","31","30","31","30","31"]
     
     // days in previous month and next one , and day of week.
@@ -51,24 +85,37 @@ function displayCalendar(){
     
        // highlight current day using the CSS defined in header.
        if (counter == day){
-           htmlContent +="<td class='dayNow'  onMouseOver='this.style.background=\"rgb(26, 25, 92)\"; this.style.color=\"#FFFFFF\"' onMouseOut='this.style.background=\"rgb(26, 25, 92)\"; this.style.color=\"#FFFFFF\"'>"+counter+"</td>";
+           htmlContent +="<td class='dayNow'  onMouseOver='this.style.background=\"rgb(26, 25, 92)\"; this.style.color=\"#FFFFFF\"' onMouseOut='this.style.background=\"rgb(26, 25, 92)\"; this.style.color=\"#FFFFFF\" style==\"rgb(26, 25, 92)\"'>"+counter+"</td>";
        }else{
            htmlContent +="<td class='monthNow' onMouseOver='this.style.background=\"rgb(26, 25, 92)\"; this.style.color=\"#FFFFFF\"' onMouseOut='this.style.background=\"#FFFFFF\"; this.style.color=\"rgb(14, 14, 214)\"'>"+counter+"</td>"; 
        }
-       
+
        weekdays2++;
        counter++;
     }
      
     // building the calendar html body.
-    var calendarBody = "<table class='calendar' CELLSPACING='2' CELLPADDING='10'> <tr class='monthNow'><th colspan='7'>"
-    +monthNames[month]+" "+ year +"</th></tr>";
-    calendarBody +="<tr class='dayNames'>  <td>Domingo</td>  <td>Segunda</td> <td>Terça</td><td>Quarta</td> <td>Quinta</td> <td>Sexta</td> <td>Sábado</td> </tr>";
-    calendarBody += "<tr>";
-    calendarBody += htmlContent;
-    calendarBody += "</tr></table>";
+    function buildCalendarBody() {
 
-    // set the content of div .
-    document.getElementById("calendar").innerHTML=calendarBody;
+        var calendarBody = "<table class='calendar' CELLSPACING='2' CELLPADDING='10'>" + 
+                        "<tr class='monthNow'><th colspan='7'>" +
+                        "<a id='btnPrevYr' href='#' title='Previous Year'><span><<  </span></a>" +
+                        "<a id='btnPrev' href='#' title='Previous Month'><span> <  </span></a>"
+                        + monthNames[month]+" "+ year +
+                        "<a id='btnNextYr' href='#' title='Next Year'><span>  >> </span></a>" +
+                        "<a id='btnNext' href='#' title='Next Month'><span>  > </span></a></th></tr>";
+        calendarBody += "<tr class='dayNames'>";
+        for(var i=0; i < 7;i++) { calendarBody += '<td>' + dayNames[i] + '</td>'; }
+        calendarBody += "</tr>";
+        calendarBody += "<tr>";
+        calendarBody += htmlContent;
+        calendarBody += "</tr></table>";
+
+        // set the content of div .
+        document.getElementById("calendar").innerHTML=calendarBody;
+
+    }
     
+    window.onload = this.buildCalendarBody();
+
    }
